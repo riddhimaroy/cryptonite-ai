@@ -1,0 +1,116 @@
+// take no of clusters and all data points within them
+// calculate distance of random data point from all data points present and sort in ascending order
+// get k value and put all distances in a diff array
+// get the closest and find in which array they are and store their cluster numbers in a diff array
+// count frequency of each cluster and find largest among them
+
+#include <stdio.h>
+int main ()
+{
+    int cl, m, i, j, x[100][100], y[100][100], xr, yr, k, b, bb, n, a, p, freq[50], w, clu[50];
+    float dist[100], dist1[100], temp;
+
+    printf("Enter the number of clusters");
+    scanf("%d", &cl);
+
+    printf("Enter the number of data points in each cluster");
+    scanf("%d", &m);
+
+    for(i=0; i<cl; i++)
+    {
+     for (j=0; j<m; j++)
+     {
+         printf("Enter the x and y value of data point %d of cluster %d", (j+1), (i+1));
+         scanf("%d %d", &x[i][j], &y[i][j]);
+     }
+    }
+
+    printf("Enter the value of x and y of random data point");
+    scanf("%d %d", &xr, &yr);
+
+    printf("Enter the value of k");
+    scanf("%d", &k);
+
+    b=0;
+     for(i=0; i<cl; i++)
+    {
+     for (j=0; j<m; j++)
+     {
+         dist[b] = sqrt ((x[i][j]-xr)*(x[i][j]-xr) + (y[i][j]-yr)*(y[i][j]-yr));
+         b++;
+     }
+    }
+
+    n = cl * m;
+    bb=0;
+    for(i=0; i<cl; i++)
+    {
+     for (j=0; j<m; j++)
+     {
+         dist1[bb]=dist[bb];
+         bb++;
+     }
+    }
+
+    for (i = 0; i < n - 1; i++)
+        {
+            for (j = 0; j < n - i - 1; j++)
+            {
+                if (dist1[j] > dist1[j + 1])
+                {
+                temp = dist1[j];
+                dist1[j] = dist1[j + 1];
+                dist1[j + 1] = temp;
+                }
+            }
+        }
+
+        bb=0;
+       for (a=0; a<k; a++)
+       {
+
+    for(i=0; i<cl; i++)
+    {
+     for (j=0; j<m; j++)
+     {
+         if ( dist1[a] == dist[bb] )
+         {
+             clu[a]=(bb/m +1);
+             bb++;
+         }
+         else
+            bb++;
+     }
+    }
+       }
+
+       for (i=0; i<k; i++)
+       {
+           p = clu[i];
+           freq[i]=0;
+           for (j=0; j<k; j++)
+           {
+               if(clu[j]==p)
+               {
+                   freq[i]++;
+               }
+           }
+       }
+
+        for (i = 0; i < k-1; i++)
+        {
+            for (j = 0; j < k - i - 1; j++)
+            {
+                if (freq[j] > freq[j + 1])
+                {
+                temp = freq[j];
+                freq[j] = freq[j + 1];
+                freq[j + 1] = temp;
+                }
+            }
+        }
+
+        w = freq[k-1];
+
+       printf("The random point belongs to cluster %d", w);
+}
