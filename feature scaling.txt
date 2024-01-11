@@ -1,0 +1,60 @@
+// take data points as x 2d array with no of features and no of data points
+// then sort each column into ascending order
+// divide every column by the max input and display 2d array
+
+#include <stdio.h>
+int main ()
+{
+    int c, r, i, j, n, m;
+    float x[50][50], temp, rmin, rmax;
+
+    printf("How many features are there\n");
+    scanf("%d", &c);
+
+    printf("How many data points are there\n");
+    scanf("%d", &r);
+
+    for (i=0; i<r; i++)
+    {
+        for (j=0; j<c; j++)
+        {
+           printf("Enter data of entry %d and feature %d\n", (i+1), (j+1));
+           scanf("%f", &x[i][j]);
+
+        }
+    }
+
+    printf("The data points are as follows\n");
+      for (i=0; i<r; i++)
+    {
+        for (j=0; j<c; j++)
+        {
+            printf("%f ",x[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("Which number feature is to be scaled\n");
+    scanf("%d", &m);
+    n = m-1;
+
+    for (i=0; i<r-1; i++)
+    {
+        for (j=0; j<r-i-1; j++)
+        {
+            if (x[j][n] > x[j + 1][n])
+            {
+                temp = x[j][n];
+            x[j][n] = x[j + 1][n];
+            x[j + 1][n] = temp;
+            }
+        }
+    }
+
+    printf("The unscaled range of the feature is %f-%f", x[0][n], x[r-1][n]);
+    rmin = x[0][n] / x[r-1][n];
+    rmax = x[r-1][n] / x[r-1][n];
+    printf("The unscaled range of the feature is %f-%f", rmin, rmax);
+
+    return 0;
+}
