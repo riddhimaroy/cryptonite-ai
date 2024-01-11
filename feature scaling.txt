@@ -51,7 +51,7 @@ int main ()
         }
     }
 
-    printf("The unscaled range of the feature is %f-%f", x[0][n], x[r-1][n]);
+    printf("The scaled range of the feature after feature scaling is %f-%f", x[0][n], x[r-1][n]);
     rmin = x[0][n] / x[r-1][n];
     rmax = x[r-1][n] / x[r-1][n];
     printf("The unscaled range of the feature is %f-%f", rmin, rmax);
